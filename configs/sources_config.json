@@ -8,7 +8,7 @@
         "has_header" : 1,
         "load_type" : "FULL",
         "destination_location" : "data/processed/<YYYY-MM-DD>/purchase_orders.parquet",
-        "transform_rules" : {
+        "transform_operations" : {
             "rename" : {"id" : "order_id", "amount" : "order_amount"},
             "drop" : ["description"],
             "cast" : {"quantity" : "int", "order_amount" : "double"}
@@ -23,7 +23,7 @@
         "has_header" : 1,
         "load_type" : "FULL",
         "destination_location" : "data/processed/<YYYY-MM-DD>/user.parquet",
-        "transform_rules" : {
+        "transform_operations" : {
             "rename" : {"id" : "user_id", "contact_number" : "mobile"},
             "drop" : ["secret_question"],
             "cast" : {"age" : "int"}

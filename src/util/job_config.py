@@ -14,10 +14,10 @@ class JobConfig:
                  source_type:str,
                  source_location:str,
                  delimeter:str,
-                 has_header:str,
+                 has_header:bool,
                  load_type:str,
                  destination_location:str,
-                 transform_rules:dict):
+                 transform_operations:dict):
         self._name = name
         self._source_name = source_name
         self._source_type = source_type
@@ -26,7 +26,7 @@ class JobConfig:
         self._has_header = str
         self._load_type = load_type
         self._destination_location = destination_location
-        self._trnsform_rules = transform_rules
+        self._transform_operations = transform_operations
         logger.info("JobConfig Object created")
 
 def get_job_config(config_location : str, job_name:str) -> JobConfig :
@@ -38,8 +38,10 @@ def get_job_config(config_location : str, job_name:str) -> JobConfig :
             configs = json.load(file)
     except FileNotFoundError as fnfe:
         logger.error(f"Erorr: The file {config_location} was not found")
+        raise fnfe
     except Exception as e:
         logger.error(f"An unexpected error occured : {e}")
+        raise e
 
     try :
         for config in configs:
@@ -50,7 +52,9 @@ def get_job_config(config_location : str, job_name:str) -> JobConfig :
                 source_type = config.get('source_type')
                 source_location = config.get('source_location')
                 delimiter = config.get('delimiter')
-                has_header = config.get('has_header')
+                has_header = True
+                if config.get('has_header') != 1 :
+                    has_header = False
                 load_type = config.get('load_type')
                 destination_location= config.get('destination_location')
                 transform_rules = config.get('transform_rules')
@@ -68,7 +72,8 @@ def get_job_config(config_location : str, job_name:str) -> JobConfig :
                 logger.info("get_job_config ends")
                 return job_config
     except Exception as e:
-        logger.error("Unexcepted Error occured {e}")      
+        logger.error("Unexcepted Error occured {e}") 
+        raise e     
 
     logger.info(f"finding job name {job_name} not found")
 
