@@ -2,3 +2,7 @@
 .venv
 .vscode
 claude-desktop-debian
+requirements.txt
+__pycache__/
+.pyc
+src/test.py
