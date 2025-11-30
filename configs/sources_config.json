@@ -3,11 +3,11 @@
         "job_name" : "purchase_orders_full_load",
         "source_name" : "purchase_orders",
         "source_type" : "FILE",
-        "source_location" : "/data/raw/<YYYY-MM-DD>/purchase_orders.csv",
+        "source_location" : "/data/raw/purchase_orders.csv",
         "delimiter" : ",",
-        "has_header" : 1,
+        "has_header" : "true",
         "load_type" : "FULL",
-        "destination_location" : "data/processed/<YYYY-MM-DD>/purchase_orders.parquet",
+        "destination_location" : "/data/processed/purchase_orders.parquet",
         "transform_operations" : {
             "rename" : {"id" : "order_id", "amount" : "order_amount"},
             "drop" : ["description"],
@@ -20,7 +20,7 @@
         "source_type" : "FILE",
         "source_location" : "/data/raw/<YYYY-MM-DD>/user.csv",
         "delimiter" : ",",
-        "has_header" : 1,
+        "has_header" : "true",
         "load_type" : "FULL",
         "destination_location" : "data/processed/<YYYY-MM-DD>/user.parquet",
         "transform_operations" : {

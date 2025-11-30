@@ -42,18 +42,21 @@ def create_spark_session(name:str) -> SparkSession:
 def run_job(config:JobConfig, spark:SparkSession):
     logger.info("run_job start")
     
+    file_path = f"{Path.cwd()}{config._source_location}"
+    logger.info(f"source path is : {file_path}")
     #load the data
     df = spark \
         .read \
-        .csv \
         .option("delimiter", config._delimeter) \
         .option("header", config._has_header) \
         .option("inferSchema", True) \
-        .load(config._source_location)
+        .csv(file_path)
     
+    logger.info(f"Before  : {df.printSchema()}")
+
     df = apply_transformations(df, config._transform_operations)
 
-    
+    logger.info(f"After  : {df.printSchema()}")
 
     logger.info("run_job end")
 

@@ -14,7 +14,7 @@ class JobConfig:
                  source_type:str,
                  source_location:str,
                  delimeter:str,
-                 has_header:bool,
+                 has_header:str,
                  load_type:str,
                  destination_location:str,
                  transform_operations:dict):
@@ -23,7 +23,7 @@ class JobConfig:
         self._source_type = source_type
         self._source_location = source_location
         self._delimeter = delimeter
-        self._has_header = str
+        self._has_header = has_header
         self._load_type = load_type
         self._destination_location = destination_location
         self._transform_operations = transform_operations
@@ -52,9 +52,7 @@ def get_job_config(config_location : str, job_name:str) -> JobConfig :
                 source_type = config.get('source_type')
                 source_location = config.get('source_location')
                 delimiter = config.get('delimiter')
-                has_header = True
-                if config.get('has_header') != 1 :
-                    has_header = False
+                has_header = config.get('has_header')
                 load_type = config.get('load_type')
                 destination_location= config.get('destination_location')
                 transform_operations = config.get('transform_operations')
