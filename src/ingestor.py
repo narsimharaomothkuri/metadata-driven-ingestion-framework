@@ -23,7 +23,7 @@ def get_job_config(job_name:str) -> JobConfig:
     
         return config
     except Exception as e :
-        logger.error("Unknown Error encounterd as :{e}")
+        logger.error(f"Unknown Error encounterd as :{e}")
         raise e
 
 
@@ -53,6 +53,8 @@ def run_job(config:JobConfig, spark:SparkSession):
     
     df = apply_transformations(df, config._transform_operations)
 
+    
+
     logger.info("run_job end")
 
 def main():
@@ -65,8 +67,9 @@ def main():
         spark = create_spark_session(config._name)
         run_job(config=config, spark=spark)
         spark.stop()
+
     except Exception as e:
-        logger.info("Unknown Error encountered as : {e}")
+        logger.info(f"Unknown Error encountered as : {e}")
     
 
 

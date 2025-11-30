@@ -57,7 +57,8 @@ def get_job_config(config_location : str, job_name:str) -> JobConfig :
                     has_header = False
                 load_type = config.get('load_type')
                 destination_location= config.get('destination_location')
-                transform_rules = config.get('transform_rules')
+                transform_operations = config.get('transform_operations')
+                # logger.info(f"transform_operations : {transform_operations}")
                 job_config = JobConfig(name=job_name, 
                                     source_name=source_name, 
                                     source_type=source_type, 
@@ -66,13 +67,13 @@ def get_job_config(config_location : str, job_name:str) -> JobConfig :
                                     has_header=has_header, 
                                     load_type=load_type, 
                                     destination_location=destination_location, 
-                                    transform_rules=transform_rules)
-                print(job_config._destination_location)
+                                    transform_operations=transform_operations)
+                
                 # logger.info(job_config._destination_location)
                 logger.info("get_job_config ends")
                 return job_config
     except Exception as e:
-        logger.error("Unexcepted Error occured {e}") 
+        logger.error(f"Unexcepted Error occured {str(e)}") 
         raise e     
 
     logger.info(f"finding job name {job_name} not found")
